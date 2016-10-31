@@ -12,6 +12,18 @@ var Records = React.createClass({
     this.setState({ records: records });
   },
 
+  deleteRecord: function(record) {
+    var index = this.state.records.indexOf(record);
+    var records = React.addons.update(this.state.records, {$splice: [[index, 1]]});
+    this.replaceState({records: records});
+  },
+
+  updateRecord: function(record, data) {
+    var index = this.state.records.indexOf(record);
+    var records = React.addons.update(this.state.records, {$splice: [[index, 1, data]]});
+    this.replaceState({records: records});
+  },
+
   credits: function() {
     var credits = this.state.records.filter(function(val){
       return val.amount >= 0
@@ -32,12 +44,6 @@ var Records = React.createClass({
 
   balance: function() {
     return this.debits() + this.credits();
-  },
-
-  deleteRecord: function(record) {
-    var index = this.state.records.indexOf(record);
-    var records = React.addons.update(this.state.records, {$splice: [[index, 1]]});
-    this.replaceState({records: records});
   },
 
   render: function() {
@@ -65,7 +71,8 @@ var Records = React.createClass({
           <tbody>
             {this.state.records.map(function(record) {
               return <Record key={record.id} record={record}
-                handleDeleteRecord={this.deleteRecord} />
+                handleDeleteRecord={this.deleteRecord}
+                handleEditRecord={this.updateRecord} />
             }.bind(this))}
           </tbody>
         </table>
