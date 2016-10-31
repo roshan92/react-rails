@@ -35,6 +35,13 @@ var Records = React.createClass({
     return this.debits() + this.credits();
   },
 
+  deleteRecord: function() {
+    var records = this.state.records.slice();
+    var index = records.indexOf(record);
+    records.splice(index, 1);
+    this.replaceState({records: records});
+  },
+
   render: function() {
     return(
       <div className='records'>
@@ -54,12 +61,14 @@ var Records = React.createClass({
               <th>Date</th>
               <th>Title</th>
               <th>Amount</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             {this.state.records.map(function(record) {
-              return <Record key={record.id} record={record} />
-             })}
+              return <Record key={record.id} record={record}
+                handleDeleteRecord={this.deleteRecord} />
+            }.bind(this))}
           </tbody>
         </table>
       </div>
