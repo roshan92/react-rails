@@ -23,9 +23,9 @@ var Record = React.createClass({
   handleEdit: function(e) {
     e.preventDefault();
     var data = {
-      title: React.findDOMNode(this.refs.title).value,
-      date: React.findDOMNode(this.refs.date).value,
-      amount: React.findDOMNode(this.refs.amount).value
+      title: ReactDOM.findDOMNode(this.refs.title).value,
+      date: ReactDOM.findDOMNode(this.refs.date).value,
+      amount: ReactDOM.findDOMNode(this.refs.amount).value
     }
     $.ajax({
       method: 'PUT',
