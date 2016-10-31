@@ -31,7 +31,7 @@ var Record = React.createClass({
       method: 'PUT',
       url: '/records/' + this.props.record.id,
       dataType: 'JSON',
-      data: {record.data},
+      data: {record: data},
       success: function(data){
         this.setState({edit: false});
         this.props.handleEditRecord(this.props.record, data);
@@ -49,8 +49,6 @@ var Record = React.createClass({
          <a className='btn btn-default' onClick={this.handleToggle}>
            Edit
          </a>
-       </td>
-       <td>
          <a className='btn btn-danger' onClick={this.handleDelete}>
            Delete
          </a>
@@ -73,7 +71,7 @@ var Record = React.createClass({
           </input>
         </td>
         <td>
-          <input className='form-control' type='text'
+          <input className='form-control' type='number'
             defaultValue={this.props.record.amount} ref='amount'>
           </input>
         </td>
@@ -89,11 +87,15 @@ var Record = React.createClass({
     );
   },
 
-  render: function(){
-    if this.state.edit === true {
+  renderedRecord: function(){
+    if(this.state.edit === true) {
       return this.recordForm();
     } else {
       return this.recordRow();
     }
+  },
+
+  render: function(){
+    return this.renderedRecord();
   }
  });
